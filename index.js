@@ -5,6 +5,13 @@ import axios from "axios";
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
 import fs from "fs";
+import express from "express";
+
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Telegram APP'));
+app.listen(port, () => console.log(`keepalive - express started on port ${port}`));
 
 dotenv.config();
 
