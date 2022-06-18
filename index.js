@@ -45,7 +45,6 @@ const updateLastIndex = async (db, channel, index, noMsgParsed) => {
 }
 
 const postToYup = async (url) => {
-  
   const payload = {
     caption: url,
     tag: 'thedailyape',
@@ -53,7 +52,7 @@ const postToYup = async (url) => {
   }
   let response
   try {
-    response = await axios.post(yupUrl, payload);
+    response = await axios.post(apiEndpoint, payload);
   } catch(e) {
     console.log(e);
   }
