@@ -46,7 +46,7 @@ const updateLastIndex = async (db, channel, index, noMsgParsed) => {
 
 const postToYup = async (url) => {
   const payload = {
-    caption: url,
+    url,
     tag: 'thedailyape',
     secret: yupSecret
   }
