@@ -113,6 +113,7 @@ const parsePersonalFeed = async (client, db) => {
   if(msgLastId > lastId) {
     lastId = msgLastId;
   }
+  noMsgParsed += msgs.length;
   await updateLastIndex(db, channels[0], lastId, noMsgParsed );
   if(!msgs.length) {
     await new Promise(resolve => setTimeout(resolve, 6e5));
@@ -134,7 +135,7 @@ const parseYupFeed = async (client, db) => {
     for(let url of urls) {
       try {
       const yupResponse = await postToYup(url);
-      console.log(yupResponse);
+      console.log("Inserted Url: ", url);
       await new Promise(resolve => setTimeout(resolve, 2e3)); 
       } catch(e) {
         console.log("API Down", e);
@@ -142,13 +143,13 @@ const parseYupFeed = async (client, db) => {
         return
       }
     }
+    const msgLastId = msg.id;
+    noMsgParsed += 1;
+    if(msgLastId > lastId) {
+      lastId = msgLastId;
+    }
+    await updateLastIndex(db, channels[1], lastId, noMsgParsed );
   }
-  const msgLastId = msgs.slice(-1)[0].id;
-  if(msgLastId > lastId) {
-    lastId = msgLastId;
-  }
-  noMsgParsed += msgs.length;
-  await updateLastIndex(db, channels[1], lastId, noMsgParsed );
   if(!msgs.length) {
     await new Promise(resolve => setTimeout(resolve, 6e5));
   }
