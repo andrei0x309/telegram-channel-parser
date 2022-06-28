@@ -108,6 +108,9 @@ const parsePersonalFeed = async (client, db) => {
   for(let msg of msgs) {
     await insertInPersonalFeed(db, client, msg);
   }
+  if(!msgs.slice(-1)[0]){
+    return
+  }
   lastId = msgs.slice(-1)[0].id;
   const msgLastId = msgs.slice(-1)[0].id;
   if(msgLastId > lastId) {
